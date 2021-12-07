@@ -1,0 +1,682 @@
+---
+title: 'We Both Step and Do Not Step in the Same Rivers: Municipal Cooperation and
+  Water Pollution Spillovers in Mexico'
+author: "Joaquín Barrutia Álvarez"
+date: "`r format(Sys.time(), '%B %Y')`"
+abstract: Streamflows create incentives to overexploit rivers since the social costs of polluting are not completely internalized by agents. Implementing solutions to tackle the spillover effects caused by this overexploitation becomes even more complicated when rivers cross political borders, as each jurisdiction the river passes through will have different interests and incentives. This work proposes as a possible solution inter-jurisdictional cooperative arrangements. A panel data where each observation is a pair of monitoring stations in neighboring municipalities allows us to investigate the determinants of river pollution in Mexico, controlling for fixed effects. The results found in this work align with the predictions made from the theory of externalities; an increase in upstream pollution will have negative consequences on downstream water quality. That is why solutions where agents better internalize the costs of their pollution, such as cooperation, can bring us closer to better management of our natural resources. Using a dichotomous variable of political alignment, this work also shows evidence that water quality in rivers improves on average in contexts where cooperation is fostered.
+output:
+  pdf_document:
+    number_sections: yes
+    includes:
+      in_header: preamble.tex
+  word_document: default
+documentclass: article
+classoption: a4paper
+fontsize: 12pt
+bibliography: referencias_tesis.bib
+header-includes:
+- \usepackage{setspace}\doublespacing
+- \usepackage{float}
+- \usepackage{graphicx}
+- \usepackage{amsmath}
+- \usepackage{relsize}
+- \usepackage{cancel}
+- \pagenumbering{gobble}
+spacing: double
+geometry: margin=1in
+fig_caption: yes
+indent: yes
+---
+\newpage
+\pagenumbering{gobble}
+\tableofcontents
+\listoffigures 
+\listoftables
+\newpage
+\pagenumbering{arabic}
+ 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.pos = "!H", out.extra = "")
+library(knitr)    
+library(ggplot2)
+library(png) 
+library(shiny) 
+```
+
+
+
+# Introduction{#id1}
+
+
+Rivers represent a classic textbook example of negative externalities due to the presence of unidirectional streamflows in lotic systems. Upstream communities do not internalize the costs of the pollution emitted to the rivers since these pollutants are transferred to downstream communities by the streamflow. Therefore, downstream communities absorb the social costs of this pollution.
+
+Lotic systems, in many cases, cross political borders. Thus, it is problematic to establish property rights and reach agreements between the parties involved [@talbot-jones_toward_2019]; it is also difficult to enforce pollution standards and, consequently, taxes. Taking this into account, this work explores cooperation as a feasible solution for water pollution spillovers across municipal jurisdictions.
+
+Several empirical studies have documented the importance of surface water preservation and its relevance to communities that inhabit close to water bodies. Diseases transmitted by freshwater pollution, such as diarrhoeal infections, are a significant cause of mortality in developing countries [@duflo_toilets_2015; @garg_not_2018; @gutierrez_local_2021]. According to the World Health Organization, diarrhoeal diseases are the second leading cause of death in children under five years of age and cause the death of 525,000 children around the world each year. A remarkable proportion of these diseases are treatable and preventable.^[This data is published on the WHO [website.](https://www.who.int/es/news-room/fact-sheets/detail/diarrhoeal-disease)]  
+
+Economics has extensive literature studying the effects of spatial spillovers on social welfare [@chen_impacts_2017; @sigman_international_2002; @yu_spatial_2013]. In addition, statements such as those of @buchanan_externality_2000, "Externality has been, and is, central to the neo-classical critique of market organisation," have contributed to a growing interest from economic literature, both theoretical and empirical, in studying possible solutions to the welfare losses that derive from spillovers. Some of the most discussed solutions include property rights [@coase_problem_1960], Pigouvian taxes [@baumol_theory_1988; @baumol_use_1971], command and control regulation [@baldwin_understanding_2012], cap and trade [@montgomery_markets_1972], and an alternative solution that is modestly studied by economists: cooperation [@ostrom_governing_1990; @roemer_what_2020; @sen_economic_1973]. 
+
+Accordingly with the preceding, this paper uses a rich panel data on water quality published by the National Water Commission of Mexico, where three leading indicators are used: Biochemical Oxygen Demand at five days (BOD5), Chemical Oxygen Demand (COD), and Total Suspended Solids (TSS), to investigate the relationship between cooperation among municipalities and pollution levels on Mexico's rivers. Research on topics like the one addressed by this paper have become more relevant lately owing to recent droughts^[News on droughts can be found in any Mexican [newspaper](https://www.elfinanciero.com.mx/nacional/2021/08/11/semarnat-activa-emergencia-por-sequia-limitara-uso-de-agua-a-concesionarios/) dated April 2021.] that have accelerated the environmental deterioration of national waters and by the frequent dumping of toxic materials into rivers by some industries such as mining.^[One of the worst illegal dumping cases in Mexico's history is that of [Grupo México in the Sonora River](https://www.bbc.com/mundo/noticias-america-latina-49201982)]
+
+The importance that upstream jurisdictions confer to water management is decisive for the development of downstream jurisdictions. Sanitary practices, excessive industrial pollution, and poor wastewater management by upstream communities are sources of disease and scarcity of usable water for downstream communities. These are some of the reasons why reaching cooperative agreements under decentralization is a matter not to be taken lightly.
+
+Decentralization has intrinsic trade-offs. A decentralized system can improve service delivery as it adjusts to local preferences, but it can also generate externalities across jurisdictional boundaries [@oates_fiscal_1972]. @lipscomb_decentralization_2017 study the effects of decentralization on river pollution for the Brazilian case. The results presented in their work are consistent with theory; pollution increases at an increasing rate as rivers approach a downstream political border. These results are intuitive; since the downstream jurisdictions will bear the adverse effects, local upstream authorities will have strong incentives to allow the emission of pollutants near political boundaries. Despite the many challenges for managing transboundary water resources under decentralized systems, the authors also find that border effects on pollution are greater in areas where cooperation is complex. 
+
+Achieving cooperative agreements between jurisdictions of the same administrative level entails complicated negotiation processes, which often do not conclude with fair outcomes for both parties [@dinar_assessing_2006; @sigman_transboundary_2005]. One way to achieve a pollution reduction in transboundary water bodies is to align local political leaders' incentives so that upstream authorities decide to take costly actions to reduce pollution that flows to neighboring regions. @kahn_water_2015 show empirically how reforms aimed to align the incentives of local authorities have a positive effect on reducing spatial spillovers. In particular, the authors provide evidence that a reform of the political promotion criteria in China incentivized local officials to enforce a reduction in border pollution. 
+
+There is less friction in entailing negotiations between local leaders in a unitary state such as China since, unlike a federal state, the central party can carry out reforms that are abided by all officials within the national level. In a federal state, local leaders often do not belong to the same political party as their peers at the same administrative level or as higher-level authorities; therefore, promises of political promotions are in many cases useless to facilitate cooperation. Although the political system in China is remarkably different from the Mexican political system, there is also evidence for Mexico that sharing party affiliation can have an impact on horizontal inter-jurisdictional cooperation and help local governments better internalize the costs of externalities. @durante_fighting_2015 argue that under a context of fierce political polarization, such as Mexico, cooperative agreements are more likely to arise between jurisdictions that share mayors of the same party than between jurisdictions with mayors of different parties.
+
+Following @durante_fighting_2015, this paper uses a political alignment dichotomous variable that indicates whether the political party of two mayors in neighboring municipalities is the same. It can be argued that the empirical objective of this variable is to measure whether political alignment can foster cooperation between municipalities. Public administration decisions from a mayor will be to a certain degree consistent with her party’s political ideology, whether due to her own conviction or due to pressure from her party. Therefore, the decisions of two mayors who share a political party will follow to some extent this same ideology. If this is the case, the actions of both mayors will have a certain level of affinity, allowing them to coincide on the decisions of public policies that affect both municipalities, thus facilitating inter-municipal agreements. In particular, upstream mayors will be willing to incur costs to enforce a pollution reduction, consequently benefiting the downstream affined municipality.
+
+The Mexican National Water Law is not detached from the problem presented by this paper. Since 1992 Mexican Law has contemplated the figure of basin councils, which are of mixed composition, with participation from water users, social organizations, and the three levels of government; federal, state, and municipal. The reason for its creation was the improvement of the management of water resources under decentralization. Its main functions include: agreeing on water use priorities, contributing to watershed sanitation, participating in the definition of general objectives and criteria for the formulation of watershed water management programs, and promoting coordination between the parties involved. Policies like the creation of organizations such as basin councils are on the right track to achieve better coordination in the management of natural resources. They are also an example of the implementation of cooperative solutions in response to the adverse effects of spillovers. This paper provides evidence that policies seeking greater inter-institutional cooperative arrangements are appropriate to achieve lower contamination levels in rivers.
+
+This work contributes to the existing literature on the role of cooperation as an alternative for a more efficient management of natural resources [@dietz_struggle_2003; @ostrom_governing_1990]. It is also related to the literature on the importance of inter-institutional arrangements in decentralized systems: while most of the existing contributions have focused on the impacts of political affiliation between different levels of government [@arulampalam_electoral_2009; @brollo_tying_2012; @levitt_political_1995], this paper provides evidence from an understudied context, political alignment between jurisdictions at the same administrative level. This paper adds to the scant literature on the impacts of horizontal political alignment on the provision of public services and environmental conservation through cooperative agreements [@durante_fighting_2015; @lipscomb_decentralization_2017]. Finally, it indirectly contributes to the literature on the determinants of water degradation [@choe_economic_1996; @duflo_toilets_2015; @garg_not_2018]. 
+
+The remainder of this paper is organized as follows. Section \ref{id2} provides context information on Mexico's political and institutional system and its rivers. Section \ref{id3} proposes a theoretical framework. Section \ref{id4} introduces the data used for the empirical analysis. Section \ref{id5} describes the empirical strategy. Section \ref{id6} shows the results, and Section \ref{id7} presents concluding remarks. 
+
+\newpage
+
+# Context{#id2}
+
+## Background on Mexico{#id2.1}
+
+Mexico is organized as a federal democratic republic. The government is divided into three administrative levels: federal, state, and municipal; each level has different competencies and faculties established in the Constitution. According to @secondat_spirit_1977, one of the objectives of a federal system is to satisfy the need to balance the power of the different levels of government vertically and horizontally.
+
+The municipality is the smallest jurisdiction in the Mexican federal system; there are 2,469 municipalities distributed throughout all the country's states. Municipalities are responsible for providing public services such as water, sewerage, street lighting, public safety, and maintenance of public parks, gardens, and cemeteries. The highest authority within the municipality is the Municipal President, who is elected by plurality every three years. Nevertheless, the Mexican Constitution foresees an Indigenous Normative Systems Regime, where local leaders are elected through customs and traditions with the aim of protecting the political-electoral rights of indigenous population. In this way, the communities have the right to elect their representatives according to processes that adjust to their context and their way of life. The specific procedures and methods are the exclusive responsibility of the indigenous municipalities. Oaxaca is the state with the greatest ethnic, cultural and linguistic diversity in the country, and therefore, in 2019, 417 out of 570 municipalities were subject to the indigenous normative systems regime.
+
+Despite the fact that Mexico has a multi-party system, historically, three major political parties dominate in local and federal electoral contests. Previously, the political parties with the most extensive popular base were PRI, PAN, and PRD. The ideology of these parties is scattered throughout the political spectrum; generally, PAN is associated with the right-wing, PRI with the center, and PRD with the left-wing. However, electoral dynamics and voter preferences have recently changed, and since 2015 MORENA has displaced PRD as one of the three major parties, positioning itself as the most relevant left-wing party in the country.
+
+Policies are shaped according to the different ideologies present in multi-party systems. In a context such as Mexico, where there are significant information asymmetries among voters and where there is uncertainty regarding most proposals, candidate profiles, and the internal process of parties for the election of their candidates, political ideology can give structure to a large set of diverse preferences by establishing links between related policy proposals, facilitating decisions to voters. Much of the inter-party competition takes place in the ideological space since it is easier for the electorate to distinguish between parties within a simplified political reality, that is, according to their position on the political spectrum [@llamazares_partidos_2002].
+
+## Rivers in Mexico{#id2.2}
+
+Since 1992, the National Water Law (LAN for its acronym in Spanish) has regulated the distribution and control of water in Mexico. CONAGUA, which is Mexico's National Water Commission, is responsible for exercising the authority and administration of water. Mexico is home to 51 major rivers and 1,471 hydrographic basins (Figure \ref{fig:Figure1}), which, for administrative purposes, CONAGUA has grouped into 731 basins. Within these basins, there is a 633,000 kilometer-long hydrographic network. 
+
+```{r, fig.cap = "\\label{fig:Figure1} Mexico's basins and major rivers. Source: CONAGUA.", message = FALSE, echo=FALSE, fig.align="center", out.width = "70%"}
+
+library(knitr)    
+library(ggplot2)
+library(png) 
+
+img1_path <- "Imágenes/Cuencas.png"
+img1 <- readPNG(img1_path, native = TRUE, info = TRUE)
+include_graphics(img1_path)
+
+```
+
+Since 2012, the Mexican Constitution has recognized access to water as a human right. The Constitution establishes that everyone has the right to access, disposal, and sanitation of water for personal and domestic consumption in a sufficient, healthy, acceptable, and affordable way. However, in 2018, only 91.6% of the population had access to drinkable water, according to official CONAGUA figures.^[Comisión Nacional del Agua. (2018). Estadísticas del agua en México. Edición 2018, http://sina.conagua.gob.mx/publicaciones/EAM_2018.pdf] A significant number of rural communities do not have access to potable water nor to piped water (See Appendix \ref{idA}), states such as Oaxaca, Chiapas, and Guerrero, which have a significant rural population, have historically presented the highest proportion of private housing units without access to piped water. Consequently, inhabitants of rural populations still have a strong dependence on bodies of water close to their communities for consumption and domestic activities.
+
+Since 1983, the provision of drinkable water, sewerage and sanitation services to the population has been among municipal governments' competencies. One of the primary sources of water pollution is sewage. Poor management of municipal wastewater, through illegal discharges of contaminated water or without proper treatment, directly affects the conservation of water bodies. Wastewater management is the responsibility of municipalities. Therefore it is relevant to investigate cooperative agreements at the municipal administrative level since these agreements have direct effects on investment in sewerage and wastewater treatment.
+
+\newpage
+
+# Theoretical Framework{#id3}
+
+According to @lee_voters_2004, there are two fundamentally different views on the role of elections in policy formation. Competing candidates have incentives to adopt policies tailored to the electorate's preferences, thus increasing their chances of winning the election. According to this point of view, ideology does not have great relevance in the decision of policies since the candidates decide to moderate their policies to adjust to a greater number of individual preferences, and the voters are the ones who dictate the policy to be followed. Alternatively, voters simply choose policies previously decided by the candidates; that is, voters decide according to the policy proposals that best suit their preferences. 
+
+A scenario in which voters shape public policy is unrealistic, as after winning elections, politicians have little incentive to deliver on the promise of a more moderate policy that is better suited to a larger number of preferences. In a single-shot game, the only consistent equilibrium is that candidates choose to carry out their preferred policy instead of keeping their word [@alesina_credibility_1988]. Therefore, according to game theory and @lee_voters_2004, candidates do not appear to change their anticipated policies in response to impacts on the probability of winning, meaning that voters choose policies through the election of rulers. These policies are influenced by multiple factors such as interest groups, party discipline, and personal convictions; in short, by political partisanship.
+
+There is a relatively large overlap between partisanship and ideology [@segal_ideology_2017]; that is why many scholars have used the party of politicians as a proxy for ideology. Political party affiliation can give valuable information about an individual's ideological preferences [@pinello_linking_1999]. Political theorists argue that political ideology can be described as a "set of beliefs about the proper order of society and how it can be achieved" [@erikson_american_2019]. Hereof, political ideology may be related to cooperation through aversion to inequality. The higher the level of aversion to inequality, the greater the willingness to cooperate with others [@balliet_political_2018]. This reasoning is consistent with the hypothesis presented in this paper: one of the purposes of political parties is to act as facilitators of cooperation. When political parties win elections, a government position is granted to the elected candidate, and it is up to this point that political ideology can materialize into anticipated public policies. These public policies will be to a greater or lesser extent cooperative if the political ideologies of the parties involved have a certain degree of compatibility.
+
+If two candidates share a political party, they are expected to share the same partisanship structure and political ideology at a certain level. Given this, the actions of both mayors will be guided by a shared set of beliefs, which can translate into inter-jurisdictional cooperative policies and agreements. It is also plausible that mayors from the same party and nearby regions know each other or have personal ties that make it easier for them to empathize with the jurisdictions' interests of their fellow party members. Additionally, political party leaders in Mexico still have a significant influence on future appointments; therefore, mayors will want to win the favor of party leaders, fulfilling party goals and gaining their trust [@freidenberg_organizacion_2007]. Moreover, internal candidate election processes within Mexican political parties are not transparent in numerous cases. Many candidates for popularly elected positions are arbitrarily chosen within the party; this compromises the actions of local leaders once elected, since factors such as political loyalty, patronage, and political favors will have a relevant influence on the policies that are carried out, in some cases forcing cooperation among local leaders to meet partisan goals.
+
+Horizontal cooperation can arise from any of the theoretical justifications presented above, and according to formal models of cooperation, such as Kantian optimization, the cooperative equilibrium (Kantian equilibrium) of any monotone decreasing game (e.g., emitting pollutants into rivers ) is Pareto efficient [@roemer_kantian_2010]^[Informal proof in Appendix \ref{idC}].  Hence, A testable prediction derived from this theoretical framework is that if two mayors of neighboring municipalities are politically aligned, there is reason to believe that cooperation will be fostered. Cooperation will translate into costly actions from upstream municipalities to prevent pollution spillovers from leaking to their neighboring municipalities, achieving a more efficient outcome for the communities involved.
+
+However, there are opposite predictions that can also be derived from this analysis. In a context of pressure and violence to access candidacies and obtain future appointments such as Mexico [@bassols_presidentas_2016], competition within parties is intense for political promotions. Candidates from nearby municipalities will be competing against each other for future scant positions, hindering the possibility of cooperation. Upstream mayors would be willing to allow transboundary spillovers, to affect their adversaries' chances for future political appointments. It is also reasonable to think that just as neighboring mayors cooperate to achieve positive outcomes, they could also cooperate for personal gains, undermining the common good. Politically aligned local authorities could cover up bad practices from their politically aligned neighbors and collude in acts of corruption [@borrella-mas_love_2021]. In the specific case of rivers, an example could be that downstream authorities decide to collude with their upstream counterpart in exchange for some benefit and turn a blind eye to the pollution originating in the upstream neighboring municipality.
+
+
+\newpage
+
+# Data{#id4}
+
+## Water Data{#id4.1}
+
+CONAGUA has developed the National Water Information System (SINA) with data on basins and aquifers' environmental, economic, and social aspects. Through SINA, CONAGUA publishes information on water quality annually obtained from monitoring stations that are spread throughout the country (Figure \ref{fig:Figure2} shows 2019 BOD5 monitoring stations located on rivers). The reported information uses three main pollution measures: Biochemical Oxygen Demand at five days (BOD5), Chemical Oxygen Demand (COD), and Total Suspended Solids (TSS). This data was collected to construct the sample for the empirical analysis. The sample used has annual data from 2006 to 2020, from more than 1,300 different stations. It is important to mention that monitoring stations are located in all types of water bodies; therefore, the data was filtered to preserve only stations belonging to rivers.
+
+```{r, fig.cap = "\\label{fig:Figure2} Municipalities and water quality monitoring stations in 2019. Source: CONAGUA.", message = FALSE, echo=FALSE, fig.align="center", out.width = "70%"}
+
+img2_path <- "Imágenes/estaciones_2019.png"
+img1 <- readPNG(img2_path, native = TRUE, info = TRUE)
+include_graphics(img2_path)
+
+```
+
+When wastewater is discharged into a receiving body such as a river, organic matter is degraded by microorganisms and causes oxygen to be consumed. BOD and COD are the indicators that can provide more information about water quality since they evaluate the oxygen consumption and the organic volumetric load of the water bodies from which the sample is extracted. BOD is an indirect measure of organic matter that can be oxidized by biological means, that is, by microorganisms. These microorganisms can be pathological, which is why many papers use BOD as its preferred pollution variable. COD is also an indirect measure of organic matter, but matter that can be oxidized by chemical means. The TSS parameter is used less frequently since it is determined by a gravimetric method, measuring the particulate material that remains in suspension in surface water bodies.
+
+Tables \ref{tab:table1}, \ref{tab:table2} and \ref{tab:table3} show descriptive statistics from all BOD, COD and TSS monitoring stations located on rivers for each year. 
+
+```{r, include=FALSE}
+
+library(dplyr)
+library(sp)
+library(sf)
+library(httr)
+library(tidyverse)
+library(stringr)
+library(readr)
+library(stargazer)
+library(stringi)
+library(knitr)
+library(kableExtra)
+
+setwd("/Contaminacion/DBO/Todo/")
+
+dbo_todo <- list.files(pattern="*.shp")
+
+mainDBO <- dbo_todo %>% map_dfr(st_read) %>% 
+  arrange(id_emca) %>% mutate( Rio = word(cuer_agu,1))
+
+mainDBO$Rio<- toupper(stri_trans_general(mainDBO$Rio, "Latin-ASCII"))
+
+mainDBO_stats <- tibble(mainDBO) %>% filter(Rio == "RIO") %>% 
+  select(-one_of(c("Rio"))) %>%  
+  arrange(id_emca, año) %>% 
+  group_by(año) %>% summarize(Stations = n(), Mean = round(mean(dbo),2), Median = round(median(dbo),2), 
+                           `Std. Dev.` = round(sd(dbo),2) ) %>% rename(Year = año) 
+
+
+#DQO
+setwd("/Contaminacion/DQO/Todo/")
+dqo_todo <- list.files(pattern="*.shp")
+
+mainDQO <- dqo_todo %>% map_dfr(st_read) %>% 
+  arrange(id_emca) %>% mutate( Rio = word(cuer_agu,1))
+
+mainDQO$Rio<- toupper(stri_trans_general(mainDQO$Rio, "Latin-ASCII"))
+
+mainDQO_stats <- tibble(mainDQO) %>% filter(Rio == "RIO") %>% 
+  select(-one_of(c("Rio"))) %>%  
+  arrange(id_emca, año) %>% 
+  group_by(año) %>% summarize(Stations = n(), Mean = round(mean(dqo),2), Median = round(median(dqo),2), 
+                           `Std. Dev.` = round(sd(dqo),2) ) %>% rename(Year = año)
+
+
+#SST
+setwd("/Contaminacion/SST/Todo/")
+sst_todo <- list.files(pattern="*.shp")
+
+mainSST <- sst_todo %>% map_dfr(st_read) %>% 
+  arrange(id_emca) %>% mutate( Rio = word(cuer_agu,1))
+
+mainSST$Rio<- toupper(stri_trans_general(mainSST$Rio, "Latin-ASCII"))
+
+mainSST_stats <- tibble(mainSST) %>% filter(Rio == "RIO") %>% 
+  select(-one_of(c("Rio"))) %>%  
+  arrange(id_emca, año) %>% 
+  group_by(año) %>% summarize(Stations = n(), Mean = round(mean(sst),2), Median = round(median(sst),2), 
+                           `Std. Dev.` = round(sd(sst),2) ) %>% rename(Year = año)
+
+```
+
+```{r table1, results = "asis", message = FALSE, echo=FALSE}
+knitr::kable(mainDBO_stats, format = "latex", booktabs = TRUE, align = "c",
+             linesep = c("", "", "\\addlinespace"),
+             caption = "BOD5(mg/L) Descriptive Statistics") %>%
+  kable_styling(latex_options = "HOLD_position")
+
+```
+
+```{r table2, results = "asis", message = FALSE, echo=FALSE}
+knitr::kable(mainDBO_stats, format = "latex", booktabs = TRUE, align = "c",
+             linesep = c("", "", "\\addlinespace"),
+             caption = "COD(mg/L) Descriptive Statistics") %>%
+  kable_styling(latex_options = "HOLD_position")
+
+```
+
+```{r table3, results = "asis", message = FALSE, echo=FALSE}
+knitr::kable(mainSST_stats, format = "latex", booktabs = TRUE, align = "c",
+             linesep = c("", "", "\\addlinespace"),
+             caption = "TSS(mg/L) Descriptive Statistics") %>%
+  kable_styling(latex_options = "HOLD_position")
+
+```
+
+## Political Data{#id4.2}
+
+Historical data on mayors of each municipality and the parties with which they ran for elections were obtained from the Institute for Federalism and Municipal Development (INAFED). As aforementioned in Section \ref{id2.1}, municipalities under an Indigenous Normative Systems Regime rule out national political parties from political competition; therefore it was determined to exclude from the sample all municipalities under this regime. In addition, every municipality in the state of Oaxaca was equivalently excluded since most of the municipalities within this state select their local representatives according to traditional procedures.
+
+Historically, candidates in Mexico usually run for elections in electoral alliances, called coalitions; a candidate can represent two or more parties. Coalitions in Mexico often bring together parties of different ideologies since the goal is to gain electoral strength. This fact complicates the analysis since it is problematic to determine which party the candidates are actually affiliated with. For the purposes of this work, if a municipal president won her election by running in a coalition, and if one of the three major parties is within the coalition, she will be assigned one of these parties. If more than one of the three relevant parties is in the same coalition, the party founded first will be assigned. If there are none of the three major parties, the most relevant political party will be assigned. The justification for making this decision is that candidates are usually drawn from the major party. Additionally, major parties generally have greater bargaining power and can exert greater pressure on candidates to align themselves with that party's political agenda. Furthermore, the oldest parties tend to have more robust electoral bases throughout the country, and their structure is present in more localities, facilitating communication with local leaders and their alignment with the party's objectives. It is essential to mention that from 2005 to 2014, the three major parties were PRI, PAN, and PRD. However, from 2015 onwards, the three major parties to be considered are PRI, PAN, and MORENA.
+
+## GIS Modeling{#id4.3}
+
+As a means of exploring the relationship between political alignment and horizontal cooperation in the context of Mexico, a longitudinal data set was constructed merging the water quality data from SINA and the data of historical municipal mayors from INAFED. Each observation in the sample was set up to be a pair of upstream-downstream stations; each pair of stations is located on the same river but in different and neighboring municipalities. In order to compile this panel data, it was necessary to determine which stations were upstream and which were downstream using a Digital Elevation Model (DEM) obtained from the National Institute of Geography and Statistics (INEGI) and GIS modeling (Figure \ref{fig:Figure3} shows INEGI's Digital Elevation Model rendered in visual form). This model allows us to determine the elevation of each monitoring station in the sample. The location of each monitoring station, determined by the coordinates (X, Y), was collected using maps from CONAGUA. The corresponding elevation value (Z) was assigned to each monitoring station using the DEM and the coordinates of each station in the sample. In this way, it is possible to determine which stations are upstream from others since the direction of the river flow can be determined by comparing which of these stations has a higher elevation. 
+
+```{r, fig.cap = "\\label{fig:Figure3} Mexico's Digital Elevation Model. Source: CEM, INEGI.", message = FALSE, echo=FALSE, fig.align="center", out.width = "70%"}
+
+img3_path <- "Imágenes/DEM_Mexico_img.png"
+img3 <- readPNG(img3_path, native = TRUE, info = TRUE)
+include_graphics(img3_path)
+```
+Once the elevation corresponding to each monitoring station was obtained, it was easy to set up the panel data by station pairs. To assign each upstream station its downstream pair, it was verified that three conditions were met:
+
+1. Both stations shared the same river. To verify this condition, it was necessary to construct a unique $id$ for each river using its hydrological region and its name since some rivers shared the same name.
+
+2. Both stations were located in different and neighboring municipalities (See Appendix \ref{idB} for reference).
+
+3. $Z_ {downstream} < Z_ {upstream}$. Downstream station elevation should be less than its upstream peer station.
+
+
+\newpage
+
+# Empirical Strategy {#id5}
+
+The empirical strategy of this work is based on the assumption that mayors of neighboring municipalities which share the same political party are more likely to reach cooperative agreements for the benefit of both jurisdictions. One of the main reasons this assumption can be fulfilled is because of political ideology or partisanship structures. 
+
+Figure \ref{fig:Figure4} illustrates the process by which cooperation between two municipalities can arise in order to reduce pollution in rivers. In this particular example, the mayors of the two municipalities that share a river do not belong to the same political party. Therefore, according to the hypothesis presented in this work, it would be expected that reaching inter-jurisdictional cooperative agreements would be more complex, and consequently, the upstream municipality will not incur costly actions to reduce river pollution. If it was the case in which both mayors belonged to the same political party, according to the hypothesis of this paper, we could expect cooperative actions between both municipalities. In particular, we could expect that upstream mayors decide to incur costly actions to reduce the emission of pollutants to the municipality of her fellow party member neighbor.
+
+```{r, fig.cap = "\\label{fig:Figure4} Example of party alignment in neighboring municipalities that share a river.", message = FALSE, echo=FALSE, fig.align="center", out.width = "70%"}
+
+img4_path <- "Imágenes/ejemplo_vecinos.png"
+img4 <- readPNG(img4_path, native = TRUE, info = TRUE)
+include_graphics(img4_path)
+```
+The following two-way fixed effects regression model (2WFE) pursues to test this work's hypothesis. In particular, it seeks to show the relation between horizontal cooperation and river pollution. The estimating equation is:
+
+\begin{equation}\begin{aligned} \label{eq:1}
+ln(Y^{downstream}_{i,t}) = & \beta_1 \textrm{Political Alignment}_{i,t} + \beta_2 ln(Y^{upstream}_{i,t})\\
+& + \beta_3 ln(\Delta\textrm{Elevation}_{i,t}) + \alpha_{i} + \lambda_{t} + u_{i,t}
+\end{aligned}\end{equation}
+
+Where $Y^{j}_{i,t}$ with superscript $j =\{downstream, upstream\}$ represents one of the pollution metrics BOD5, COD or TSS reported at the corresponding downstream or upstream station in station pair $i$ at year $t$ (i.e., $2006-2020$); specifically three specifications will be estimated, one per metric ($BOD^{j}_{i,t}$, $COD^{j}_{i,t}$ and $TSS^{j}_{i,t}$). As can be seen in Figure \ref{fig:Figure4}, in a lotic system, a large proportion of the pollution reported in a downstream station (i.e., $BOD^{downstream}_{i,t}$) can be explained by the accumulated pollution along the river and reported by its upstream peer station (i.e., $BOD^{upstream}_{i,t}$). 
+
+
+$\textrm{Political Alignment}_{i,t}$ is the main independent variable in this paper and is a binary variable that proxies cooperation using each neighboring municipal mayor's partisanship ($Party^{j}_{i,t}$ with $j =\{downstream, upstream\}$); this variable was constructed as follows:      
+
+\[
+    \textrm{Political Alignment}_{i,t}= 
+\begin{cases}
+    1,& \text{if } \textrm{Party}^{downstream}_{i,t} = \textrm{Party}^{upstream}_{i,t} \\
+    0, & \text{o.c.}
+\end{cases}
+\]
+
+$\Delta{Elevation}_{i,t}$ is a variable that represents the difference in elevation between the pair of stations $i$ at time $t$; this variable was constructed as follows:     
+
+\[
+\Delta\textrm{Elevation}_{i,t} = \textrm{Elevation}^{upstream}_{i,t} - \textrm{Elevation}^{downstream}_{i,t}
+\]
+
+The decision to incorporate this variable into the estimating equations (\ref{eq:1}) was made based on the stream discharge Manning formula^[Manning's formula is one of the most common equations for estimating discharge of an open channel flow. More information about this can be found on the web.]:
+
+\[
+\textrm{Q} = \textrm{A} \bar{u}
+\]
+
+where
+
+ - $Q$ is the discharge.
+ - $A$ is the channel cross-sectional area.
+ - $\bar{u}$ is the average flow velocity.
+
+The discharge of a river is an essential variable for water quality management. The ecological effects of pollution are less harmful and persistent when the discharge rate is higher. In the absence of a variable that measures the discharge rate at each monitoring station, the variable $\Delta{Elevation}_{i,t}$ was incorporated, which can be interpreted as the slope of the river. The slope of a river is positively related to its flow velocity since velocity is driven by the acceleration due to gravity. Furthermore, from the Manning equation, it is easy to see that river discharge is positively related to velocity. Intuitively, in the presence of a greater steepness in a river section, the water stagnates less; therefore, the volume of water flowing over time will be greater. This water flow also includes suspended solids, dissolved chemicals, and biological material, which can be pollutants captured by CONAGUA's monitoring stations. Therefore, a high discharge prevents all of this pollution from remaining stagnant. By observing a negative coefficient for this variable it can be verified that the pairs of stations are located upstream and downstream, respectively.
+
+Lastly, specification (\ref{eq:1}) controls for station-pair fixed effects ($\alpha_{i}$), and time fixed effects ($\lambda_ {t}$). It is important to add monitoring station-pair fixed effects to control for variables that remain constant over time but have important effects on river pollution. By adding these fixed effects, we control for the distance between the stations of each pair; at a greater distance, we could expect an increase in pollution as there would be more communities, industries, or cities located between these two stations. Furthermore, these fixed effects control for the distance between stations and the downstream or upstream border of the neighboring municipality since, as @lipscomb_decentralization_2017 show, pollution increases as we approach the downstream borders. Additionally, considering that the treatment variable is mayoral alignment, and  since mayoral alignment varies by municipality-pair, standard errors were clustered at the municipality-pair level since the error terms are potentially spatially correlated. 
+\newpage
+
+# Results {#id6}
+
+```{r, include=FALSE}
+library(sandwich)
+library(broom)
+library(lmtest)
+library(lfe)
+library(formattable)
+setwd("/Clean_Data/")
+
+datos_dbo <- read_csv("df_dbo.csv") %>% 
+  mutate(id_estaciones = as.factor(paste(id_emca.x, id_emca.y, sep = "_")), `Upstream Elevation`= elevation.x, `Downstream Elevation`= elevation.y) %>%
+  rename(`Upstream BOD` = dbo.x, `Downstream BOD` = dbo.y, `Political Alignment` = Political_Alignment ) 
+
+datos_dqo <- read_csv("df_dqo.csv") %>% 
+  mutate(id_estaciones = as.factor(paste(id_emca.x, id_emca.y, sep = "_")), `Upstream Elevation`= elevation.x, `Downstream Elevation`= elevation.y) %>%
+  rename(`Upstream COD` = dqo.x, `Downstream COD` = dqo.y, `Political Alignment` = Political_Alignment )
+
+datos_sst <- read_csv("df_sst.csv") %>% 
+  mutate(id_estaciones = as.factor(paste(id_emca.x, id_emca.y, sep = "_")), `Upstream Elevation`= elevation.x, `Downstream Elevation`= elevation.y) %>%
+  rename(`Upstream TSS` = sst.x, `Downstream TSS` = sst.y, `Political Alignment` = Political_Alignment )
+
+
+reg_1 <- felm(log(`Downstream BOD`) ~ log(`Upstream Elevation` - `Downstream Elevation`) + `Political Alignment` + 
+                log(`Upstream BOD`) |id_estaciones + as.factor(anio.x)  | 0 |id_vecinos , data = datos_dbo)
+
+reg_2 <- felm(log(`Downstream COD`) ~ log(`Upstream Elevation` - `Downstream Elevation`) + `Political Alignment` +
+                log(`Upstream COD`) |id_estaciones + as.factor(anio.x)| 0 | id_vecinos, data = datos_dqo)
+
+reg_3 <- felm(log(`Downstream TSS`) ~ log(`Upstream Elevation` - `Downstream Elevation`) + `Political Alignment` +
+                log(`Upstream TSS`) |id_estaciones + as.factor(anio.x)| 0 | id_vecinos, data = datos_sst)
+
+#number of municipality pairs
+mun_dbo <- comma(as.numeric(count(datos_dbo %>%  distinct(id_vecinos))),digits = 0)
+mun_dqo <- comma(as.numeric(count(datos_dqo %>%  distinct(id_vecinos))), digits = 0)
+mun_sst <- comma(as.numeric(count(datos_sst %>%  distinct(id_vecinos))), digits = 0)
+
+##number of station pairs
+station_dbo <- comma(as.numeric(count(datos_dbo %>%  distinct(id_estaciones))),digits = 0)
+station_dqo <- comma(as.numeric(count(datos_dqo %>%  distinct(id_estaciones))),digits = 0)
+station_sst <- comma(as.numeric(count(datos_sst %>%  distinct(id_estaciones))), digits = 0)
+
+
+reg_4 <- felm(log(`Downstream BOD`) ~ log(`Upstream Elevation` - `Downstream Elevation`) + `Political Alignment` + 
+                log(`Upstream BOD`) |id_estaciones + as.factor(anio.x) + id_estaciones:anio.x| 0 | id_estaciones, data = datos_dbo)
+
+reg_5 <- felm(log(`Downstream COD`) ~ log(`Upstream Elevation` - `Downstream Elevation`) + `Political Alignment` + 
+                log(`Upstream COD`) |id_estaciones + as.factor(anio.x) + id_estaciones:anio.x| 0 | id_estaciones, data = datos_dqo)
+
+reg_6 <- felm(log(`Downstream TSS`) ~ log(`Upstream Elevation` - `Downstream Elevation`) + `Political Alignment` + log(`Upstream TSS`) |id_estaciones + as.factor(anio.x) + id_estaciones:anio.x| 0 | id_estaciones, data = datos_sst)
+
+
+# lead 6 years ahead
+datos_dbo_2 <- datos_dbo %>% 
+  mutate(id_estaciones = as.factor(paste(id_emca.x, id_emca.y, sep = "_")), `Upstream Elevation`= elevation.x, `Downstream Elevation`= elevation.y) %>%
+  rename(`Upstream BOD` = dbo.x, `Downstream BOD` = dbo.y, `Political Alignment` = Political_Alignment ) %>% 
+  group_by(id_par) %>% mutate(lead_political= lead(`Political Alignment`,6)) %>% ungroup()
+
+datos_dqo_2 <- datos_dqo %>% 
+  mutate(id_estaciones = as.factor(paste(id_emca.x, id_emca.y, sep = "_")), `Upstream Elevation`= elevation.x, `Downstream Elevation`= elevation.y) %>%
+  rename(`Upstream COD` = dqo.x, `Downstream COD` = dqo.y, `Political Alignment` = Political_Alignment ) %>% 
+  group_by(id_par) %>% mutate(lead_political= lead(`Political Alignment`,6)) %>% ungroup()
+
+
+datos_sst_2 <- datos_sst %>% 
+  mutate(id_estaciones = as.factor(paste(id_emca.x, id_emca.y, sep = "_")), `Upstream Elevation`= elevation.x, `Downstream Elevation`= elevation.y) %>%
+  rename(`Upstream TSS` = sst.x, `Downstream TSS` = sst.y, `Political Alignment` = Political_Alignment ) %>% 
+  group_by(id_par) %>% mutate(lead_political= lead(`Political Alignment`,6)) %>% ungroup()
+
+
+datos_dbo_3 <- datos_dbo_2 %>% filter(!is.na(lead_political))
+datos_dqo_3 <- datos_dqo_2 %>% filter(!is.na(lead_political))
+datos_sst_3 <- datos_sst_2 %>% filter(!is.na(lead_political))
+
+#number of municipality pairs without observations dropped by the 6 year lead
+mun_dbo_2 <- comma(as.numeric(count(datos_dbo_3 %>%  distinct(id_vecinos))),digits = 0)
+mun_dqo_2 <- comma(as.numeric(count(datos_dqo_3 %>%  distinct(id_vecinos))), digits = 0)
+mun_sst_2 <- comma(as.numeric(count(datos_sst_3 %>%  distinct(id_vecinos))), digits = 0)
+
+#number of station pairs without observations dropped by the 6 year lead
+station_dbo_2 <- comma(as.numeric(count(datos_dbo_3 %>%  distinct(id_estaciones))),digits = 0)
+station_dqo_2 <- comma(as.numeric(count(datos_dqo_3 %>%  distinct(id_estaciones))),digits = 0)
+station_sst_2 <- comma(as.numeric(count(datos_sst_3 %>%  distinct(id_estaciones))), digits = 0)
+
+
+reg_7 <- felm(log(`Downstream BOD`) ~ log(`Upstream Elevation` - `Downstream Elevation`) + `Political Alignment` + 
+                lead_political  +
+                log(`Upstream BOD`) |id_estaciones + as.factor(anio.x)  | 0 | id_vecinos, data = datos_dbo_2)
+
+reg_8 <- felm(log(`Downstream COD`) ~ log(`Upstream Elevation` - `Downstream Elevation`) + `Political Alignment` +
+                lead_political +
+                log(`Upstream COD`) |id_estaciones + as.factor(anio.x)| 0 | id_vecinos, data = datos_dqo_2)
+
+reg_9 <- felm(log(`Downstream TSS`) ~ log(`Upstream Elevation` - `Downstream Elevation`) + `Political Alignment` +
+                lead_political +
+                log(`Upstream TSS`) |id_estaciones + as.factor(anio.x)| 0 | id_vecinos, data = datos_sst_2)
+
+
+```
+
+The results are reported in Table \ref{tab:table4} with each column being estimated according to equation (\ref{eq:1}), using each of the corresponding water pollution metrics. The coefficients on the upstream pollution variables ($BOD^{upstream}$, $COD^{upstream}$ and $TSS^{upstream}$) are significant (1% level) and consistent with the theory of economic externalities. A 1% increase in upstream municipal pollution is related to a `r abs(round(broom::tidy(reg_1)$estimate[3], 2))`%, `r round(broom::tidy(reg_2)$estimate[3], 2)`% or `r round(broom::tidy(reg_3)$estimate[3], 2)`% increase in downstream pollution, depending on the indicator used. In addition, the coefficients on $\Delta{Elevation}$ are negative for the three indicators as predicted by river pollution decay theory and Manning’s equation. The coefficient is only significant (10% level) for the TSS(mg/L) specification, meaning that a 1% increase in the river slope is related to a `r abs(round(broom::tidy(reg_3)$estimate[1], 2))`% decrease on downstream TSS levels. 
+
+Political Alignment displays a negative and significant coefficient for the first two indicators (at the 1% level for specification $(1)$ representing BOD,  and 5% level for specification $(2)$ representing COD), with a magnitude of `r round(broom::tidy(reg_1)$estimate[2], 2)` and `r round(broom::tidy(reg_2)$estimate[2],2)`,  which shows evidence consistent with this work’s hypothesis. The mean downstream pollution for municipality pairs with politically aligned mayors likely being `r round(abs(100*(exp(broom::tidy(reg_1)$estimate[2])-1)),2)`%, and `r round(abs(100*(exp(broom::tidy(reg_2)$estimate[2])-1)),2)`% lower than for municipality pairs that are not politically aligned. The coefficients obtained for the Political Alignment variable suggest that municipal cooperation is negatively related to downstream pollution. A possible explanation for this situation likely has to do with the underlying mechanism presented in previous sections: upstream municipal mayors will incur costly actions to prevent accumulated pollution in their municipality from reaching their neighboring party peers. The Political Alignment coefficient on the specification corresponding to the TSS(mg/L) indicator is not significant. A plausible explanation is that since the TSS parameter is calculated through a gravimetric method, this indicator also captures pollution derived from soil erosion and individual direct dumping of solid materials and garbage. Soil erosion depends to a greater extent on the dynamics of each river, including temporal and spatial variations, than on municipal public policies.
+
+
+## Robustness Checks{#id6.2}
+
+The main threat to the estimated equations in Table \ref{tab:table4} is the fulfillment of the strict exogeneity assumption, meaning that the treatment in each time period must be uncorrelated with the error term in each time period. Under a 2WFE regression, we are controlling for the omitted variable bias originating from unobserved heterogeneity, which is constant over time and constant over pair of stations; however, it is difficult to argue for any 2WFE design that the strict exogeneity assumption is fully met. It is easy to imagine that cooperative actions carried out by mayors in the aligned municipalities will have lasting effects, thus violating the assumption of strict exogeneity. Therefore, it was decided to run some additional specifications to give robustness to the results.
+
+First, it was decided to control for linear time trends specific to each station-pair. These help to rule out the possibility that politically aligned pairs and non-aligned pairs were already on differential growth trajectories in the outcome variable. If the effects captured by the Political Alignment coefficient are only due to some underlying trends, the effects will be banished away by incorporating these pair-specific trends into our estimating equation, meaning a change in the outcome would have happened even in the absence of treatment. The new estimating equation is the following: 
+
+\begin{equation}\begin{aligned} \label{eq:2}
+ln(Y^{downstream}_{i,t}) = & \beta_1 \textrm{Political Alignment}_{i,t} + \beta_2 ln(Y^{upstream}_{i,t}) \\
+ & + \beta_3 ln(\Delta\textrm{Elevation}_{i,t}) + \beta_4 (i \times t)  + \alpha_{i} + \lambda_{t} + u_{i,t}
+\end{aligned}\end{equation}
+
+
+The Political Alignment coefficient remains negative and significant (1% level) only for BOD5(mg/L) specification, showing evidence that the predictions suggested by this paper's hypothesis may be being fulfilled. The coefficient magnitude displayed for this pollution indicator is `r round(broom::tidy(reg_4)$estimate[2], 2)`. The mean downstream pollution for politically aligned municipality pairs likely being `r round(abs(100*(exp(broom::tidy(reg_4)$estimate[2])-1)),2)`% lower than for unaligned municipality pairs. BOD and COD are the preferred indicators used by water quality management literature. Additionally, BOD indicator is relevant in measuring the pollutants in which municipal authorities do have influence since it better captures the presence of pathological microorganisms originating from sewage discharges. These results can give more certainty to the results presented previously, since our effect of political alignment on pollution measured by the BOD indicator is not being flushed away by incorporating pair-specific trends. Promoting inter-jurisdictional cooperation can be a public policy tool to combat negative externalities and their adverse effects. These results are displayed in Table \ref{tab:table5}. 
+
+
+The second measure implemented to give robustness to the results of this work was to modify the original estimating equation (\ref{eq:1}) by adding a lead of 6 years to the treatment since future alignment should not influence the outcome variable once we control for present alignment and all the fixed effects. The decision to incorporate leads of six years was made considering the period that mayors can last in office. According to the Mexican Constitution, mayors are elected for three-year terms and can be reelected for an additional term; therefore six years ahead alignment must not be related to present alignment. The new estimating equation is the following:
+
+\begin{equation}\begin{aligned} \label{eq:3}
+ln(Y^{downstream}_{i,t}) = & \beta_1 \textrm{Political Alignment}_{i,t} + \beta_2 \textrm{Political Alignment}_{i,t+6}\\
+ & + \beta_3 ln(Y^{upstream}_{i,t}) + \beta_4 ln(\Delta\textrm{Elevation}_{i,t}) + \alpha_{i} + \lambda_{t} + u_{i,t}
+\end{aligned}\end{equation}
+
+
+Results in Table \ref{tab:table6} display the $\beta_2$ coefficient for the BOD, COD, and TSS specifications; these coefficients are not significant, which is consistent with the results expected. Nonetheless, the only specification in which the $\beta_1$ coefficient remains significant is the one using BOD as the pollution indicator. This evidence suggests that the political alignment coefficient ($\beta_1$) captures the relation of cooperation on water degradation at least for one of the three specifications.
+
+## Negative Weights{#id6.3}
+
+It is relevant to mention recent literature on additional issues related to estimators obtained in a 2WFE design [@borusyak_revisiting_2017; @callaway_difference_2021; @de_chaisemartin_two-way_2020; @goodman-bacon_difference_2021]. A  $2\times2$ pre-post design is not feasible due to this work's data structure, specifically given the characteristics of our treatment (Political Alignment), which switches from on to off and vice versa in different and multiple periods of time. Thus, a two-way fixed effects regression model, such as equation (\ref{eq:1}), might seem like the right estimating equation to test this work's hypothesis, the negative weights problem should be taken into consideration. 
+
+Equation (\ref{eq:1}) is a particular case of the following general 2WFE regression equation:
+
+\begin{equation}\begin{aligned} \label{eq:3}
+Y_{i,t} = \beta T_{i,t} + \alpha_{i} + \lambda_{t} + \epsilon_{i,t}
+\end{aligned}\end{equation}
+
+Following @de_chaisemartin_two-way_2020 under common trends assumption and heterogeneous treatment effects, $\beta$ will identify the expectation of the weighted sum of treatment effects.
+
+\begin{equation}\begin{aligned} \label{eq:4}
+\beta =\mathbb{E} \left[  \mathlarger{\sum}_{i,t} W_{i,t} TE_{i,t}  \right] 
+\end{aligned}\end{equation}
+
+Where $W_{i,t}$ represents weights summing to one, and $TE_{i,t}$ represents the average treatment (ATE) effect for an individual $i$ at time $t$. Therefore, $\beta \neq ATE$. 
+
+In many complicated designs where the treatment switches on and off, such as this paper, weights can be strictly negative ($W_{i,t} < 0$), implying that $\beta$ could be negative even if all the $TE_{i,t}$ are positive. 
+
+Borrowing @de_chaisemartin_two-way_2020 terminology, let us assume for simplicity a binary treatment with a staggered design. For this particular case, $\beta$ would be the weighted average of two types of DiDs:
+
+1. $DiD_1$ which compares the change in $Y$ ($\Delta Y$) from $t-1$ to $t$ for individuals switching to a treatment status in $t$ (these individuals will be denoted as switchers: $S$), and for individuals untreated in both time periods  (these individuals will be denoted as never-treated: $NT$). This is the usual DiD comparison, which is correct.
+
+2. $DiD_2$ which compares the $\Delta Y$ for $S$ and for individuals treated at both time periods (these individuals will be denoted as always-treated: $AT$). The discussion will be expanded below to show how to compute $DiD_2$.
+
+At period $t-1$ the switchers are untreated and therefore their outcome is their untreated potential outcome ($Y_{S,t-1} = Y_{S,t-1}(0)$). At period $t$ switchers are treated, therefore their outcome is now their outcome with the treatment, which can be rewritten as the sum of the untreated outcome plus the treatment effect ($Y_{S,t} = Y_{S,t}(0) + TE_{S,t}$). The following expression (\ref{eq:5}) can be obtained from the first difference of these two previous outcomes. 
+
+\begin{equation}\begin{aligned} \label{eq:5}
+\Delta Y_{S} = \Delta Y(0) + TE_{S,t}
+\end{aligned}\end{equation}
+
+Following the same steps for the $AT$ individuals, expression (\ref{eq:6}) can be obtained from these two outcomes: $Y_{AT,t-1} = Y_{AT,t-1}(0) + TE_{AT,t-1}$, and $Y_{AT,t} = Y_{AT,t}(0) + TE_{AT,t}$. 
+
+\begin{equation}\begin{aligned} \label{eq:6}
+\Delta Y_{AT} = \Delta Y(0) + TE_{AT,t} - TE_{AT,t-1}
+\end{aligned}\end{equation}
+
+Therefore, $DiD_2$ can be obtained from expressions (\ref{eq:5}) and (\ref{eq:6}):
+
+\begin{equation}\begin{aligned} \label{eq:7}
+DiD_2 & =  \Delta Y_S - \Delta Y_{AT} =  \cancel{\Delta Y(0)} + TE_{S,t} -  \cancel{\Delta Y(0)} - TE_{AT,t} + TE_{AT,t-1}\\
+& = TE_{S,t} - TE_{AT,t} + TE_{AT,t-1}
+\end{aligned}\end{equation}
+
+Note that under common trends assumption, the evolution of the untreated potential outcomes is the same for both types of individuals, so both terms cancel out. 
+
+Equation (\ref{eq:7}) is a weighted sum of three treatment effects, with weights summing to one, but with one negative weight. Specifically, the always-treated treatment effect will enter with a negative sign to $DiD_2$ and consequently to $\beta$. This problem will only arise under heterogeneous treatment effects over time; if constant treatment effects were assumed, it is easy to see that $TE_{AT,t}$ and $TE_{AT,t-1}$ terms will cancel out. 
+
+The negative weights problem is not a minor issue for a design like the one presented in this paper; it is essential to consider this fact when drawing conclusions based on the previous results since, presumably, the Political Alignment treatment has heterogeneous effects over time. Fortunately, thanks to the credibility revolution in empirical economics, literature has advanced at a surprising pace to provide solutions and alternatives to problems such as negative weights. In future work, it would be desirable to use state-of-the-art methods in order to estimate robust coefficients to heterogenous and dynamic effects. 
+
+Exposing threats to this work does not mean that the results obtained are necessarily totally discredited. Intuition and theoretical foundations presented in Section \ref{id3} help in justifying that cooperation is a helpful policy to combat spatial spillover effects. In addition, the results in this paper are useful empirical evidence showing a negative correlation between cooperation and downstream pollution levels, which suggests that due to some underlying mechanism, which could be or not the one described in this paper, the municipalities that have an upstream neighbor with the same political party, on average, keep their rivers less polluted and with better water quality. 
+
+```{=latex}
+\begin{table}
+\label{table4}
+```
+
+```{r table4, results = "asis", message = FALSE, echo=FALSE}
+
+stargazer(reg_1, reg_2, reg_3,
+          add.lines = list(c("Station-pair fixed effects", "Y", "Y", "Y"),
+                           c("Year fixed effects", "Y", "Y", "Y"), 
+                           c("Clustered S.E. by municipality-pair", "Y", "Y", "Y"),
+                           c("Pairs of neighboring municipalities",mun_dbo, mun_dqo, mun_sst),
+                           c("Station pairs",station_dbo, station_dqo, station_sst)), title = "TWFE Regression: Determinants of Downstream Pollution Changes", covariate.labels = c("log($\\Delta Elevation$)", "Political Alignment", "log($BOD^{up}$)", "log($COD^{up}$)","log($TSS^{up}$)"), dep.var.labels = c("log($BOD^{down}$)", "log($COD^{down}$)", "log($TSS^{down}$)"),  type = "latex", header=FALSE, align=FALSE, initial.zero=TRUE, perl=TRUE, omit.stat=c("rsq", "f", "ser" ), float=TRUE, column.sep.width="3pt", font.size = "small",
+          digits=3, digits.extra=4, table.placement = "H", label = "tab:table4", table.layout = "-ld#-t-as-n")
+```
+
+```{=latex}
+
+\textit{Notes:} The dependent variable is the log pollution level (BOD, COD, TSS) at the downstream station. All regressions include year, and station-pair fixed effects. Clustered standard errors by municipality-pair in parentheses. All regressions include the following independent variables: the log elevation difference between stations within pairs, a political alignment dummy variable, and the log pollution level at the upstream station.
+
+\end{table}
+```
+
+
+```{=latex}
+\begin{table}
+\label{table5}
+```
+
+```{r table5, results = "asis", message = FALSE, echo=FALSE}
+
+stargazer(reg_4, reg_5, reg_6,
+          add.lines = list(c("Station-pair fixed effects", "Y", "Y", "Y"),
+                           c("Year fixed effects", "Y", "Y", "Y"),
+                           c("Station-pair trends", "Y", "Y", "Y"),
+                           c("Clustered S.E. by municipality-pair", "Y", "Y", "Y"),
+                           c("Pairs of neighboring municipalities",mun_dbo, mun_dqo, mun_sst),
+                           c("Station pairs",station_dbo, station_dqo, station_sst)), title = "Robustness Test: Adding Pair Specific Linear Time Trends", covariate.labels = c("log($\\Delta Elevation$)", "Political Alignment", "log($BOD^{up}$)", "log($COD^{up}$)","log($TSS^{up}$)"), dep.var.labels = c("log($BOD^{down}$)", "log($COD^{down}$)", "log($TSS^{down}$)"),  type = "latex", header=FALSE, align=FALSE, initial.zero=TRUE, perl=TRUE, omit.stat=c("rsq", "f", "ser" ), float=TRUE, column.sep.width="3pt", font.size = "small",
+          digits=3, digits.extra=4, table.placement = "H", label = "tab:table5", table.layout = "-ld#-t-as-n" )
+```
+
+```{=latex}
+
+\textit{Notes:} The dependent variable is the log pollution level (BOD, COD, TSS) at the downstream station. All regressions include year and station-pair fixed effects and station-pair trends. Clustered standard errors by municipality-pair in parentheses. All regressions include the following independent variables: the log elevation difference between stations within pairs, a political alignment dummy variable, and the log pollution level at the upstream station.
+
+\end{table}
+```
+
+
+```{=latex}
+\begin{table}
+\label{table6}
+```
+
+```{r table6, results = "asis", message = FALSE, echo=FALSE}
+
+stargazer(reg_7, reg_8, reg_9,
+          add.lines = list(c("Station-pair fixed effects", "Y", "Y", "Y"),
+                           c("Year fixed effects", "Y", "Y", "Y"), 
+                           c("Clustered S.E. by municipality-pair", "Y", "Y", "Y"),
+                           c("Pairs of neighboring municipalities",mun_dbo_2, mun_dqo_2, mun_sst_2),
+                           c("Station pairs",station_dbo_2, station_dqo_2, station_sst_2)), title = "Robustness Test: Adding a Leading Political Alignment Variable", covariate.labels = c("log($\\Delta Elevation$)", "Political Alignment", "Political $Alignment_{+6}$", "log($BOD^{up}$)", "log($COD^{up}$)","log($TSS^{up}$)"), dep.var.labels = c("log($BOD^{down}$)", "log($COD^{down}$)", "log($TSS^{down}$)"),  type = "latex", header=FALSE, align=FALSE, initial.zero=TRUE, perl=TRUE, omit.stat=c("rsq", "f", "ser" ), float=TRUE, column.sep.width="3pt", font.size = "small",
+          digits=3, digits.extra=4, table.placement = "H", label = "tab:table6", table.layout = "-ld#-t-as-n" )
+
+```
+
+```{=latex}
+
+\textit{Notes:} The dependent variable is the log pollution level (BOD, COD, TSS) at the downstream station. All regressions include year and station-pair fixed effects. Clustered standard errors by municipality-pair in parentheses. All regressions include the following independent variables: the log elevation difference between stations within-pair, a political alignment dummy variable, the alignment dummy variable with a 6-year lead, the log pollution level at the upstream station.
+
+\end{table}
+```
+
+
+\newpage
+
+# Final Remarks{#id7}
+
+This work does not study the trade-offs between the disadvantages and advantages of centralization versus decentralization on the provision of public goods. The objective of using a binary variable for political alignment is to examine whether improved cooperation opportunities result in actions to avoid large pollution leaks to neighboring municipalities. This paper attempts to shed light on one of the roles of political parties that is normally overlooked, cooperation facilitators. The underlying mechanism may not be clear, but it is probably made up of a combination of ideology, political discipline, and personal relationships, all of which are possible due to the party structure of democracies. 
+
+Following the theoretical framework presented in Section \ref{id3}, this work adds to the empirical literature that has provided evidence on how cooperation can result in more efficient outcomes under certain circumstances. Specifically, contributing to the investigation on the effects of inter-jurisdictional horizontal cooperation on public management of spillovers.
+
+The results presented indicate that pollution decisions by upstream municipalities affect pollution levels in neighboring municipalities, which is consistent with basic externality theory. Therefore to seek possible solutions, it is necessary to consider policies that consider the lack of internalization of costs by agents. As mentioned in Section \ref{id1}, the policies usually proposed are challenging to implement in natural resources such as rivers. Some governments in Latin America have implemented basin councils to improve efficiency in river management. Basin councils, as well as political parties, play a role as cooperation enforcers since their mixed composition mitigates the inefficiencies of decentralized systems.
+
+The decrease in the mean downstream pollution in politically aligned municipalities suggests that cooperation facilitators could bring communities closer to more efficient equilibria. The continuance of policies that seek to strengthen the authority and competencies of basin councils and promote the development of more organizations whose function is to facilitate cooperative agreements are some policy recommendations that can be derived from the evidence presented in this work. 
+
+\newpage
+
+# References {-}
+
+<div id="refs"></div>
+
+\newpage
+
+\appendix
+
+# Appendix: Access to Piped Water{#idA}
+
+```{r, include=FALSE}
+
+setwd("Censo INEGI/")
+
+DF_Agua <- read_csv("DF_Agua.csv") %>% rename(State = ENT)
+
+
+N <- ggplot(DF_Agua %>% filter(REGION == "Norte"), aes(x = YEAR, y = DIV, color = State)) + 
+  geom_label(x=2013, y=17, size = 3 ,label= (expression(atop("Recognition of access to water as", paste("a human right in the Constitution")))), color = "black")
+
+norte <- N + geom_point() + geom_line() + geom_vline(xintercept= 2012, linetype="dotted") + 
+  labs(y ="%") + 
+  scale_x_continuous(breaks=seq(1990, 2020, by = 5)) + theme_bw() + 
+  theme(axis.title.x = element_blank()) 
+
+O <- ggplot(DF_Agua %>% filter(REGION == "Occidente/Oriente"), aes(x = YEAR, y = DIV, color = State))
+
+oeste <- O + geom_point() + geom_line() + geom_vline(xintercept= 2012, linetype="dotted") + 
+  labs(y ="%") + 
+  scale_x_continuous(breaks=seq(1990, 2020, by = 5)) + theme_bw() + 
+  theme(axis.title.x = element_blank(), legend.title=element_blank()) 
+
+C <- ggplot(DF_Agua %>% filter(REGION == "Centro"), aes(x = YEAR, y = DIV, color = State))
+
+centro <- C + geom_point() + geom_line() + geom_vline(xintercept= 2012, linetype="dotted") + 
+  labs(y ="%") + 
+  scale_x_continuous(breaks=seq(1990, 2020, by = 5)) + theme_bw() + 
+  theme(axis.title.x = element_blank(), legend.title=element_blank())
+
+
+S <- ggplot(DF_Agua %>% filter(REGION == "Sur"), aes(x = YEAR, y = DIV, color = State))
+
+sur <- S + geom_point() + geom_line() + geom_vline(xintercept= 2012, linetype="dotted") + 
+  labs(y ="%") + 
+  scale_x_continuous(breaks=seq(1990, 2020, by = 5)) + theme_bw() + 
+  theme(axis.title.x = element_blank(), legend.title=element_blank()) 
+```
+
+```{r echo=FALSE, fig.cap="\\label{fig:Appendix1} Proportion of Inhabited Private Housing Units without Access to Piped Water by State. Source: INEGI", message=FALSE, warning=FALSE, fig.height= 10, fig.width= 10}
+
+require(cowplot)
+
+plot_grid(norte, oeste, centro, sur, nrow = 4, labels = "AUTO", align = "hv")
+
+```
+
+# Appendix: Neighboring Municipalities{#idB}
+
+```{=latex}
+\begin{figure}[t]
+```
+
+```{r, fig.cap = "\\label{fig:Appendix2} Neighboring municipalities", message = FALSE, echo=FALSE, fig.align="center", out.width = "80%"}
+ 
+img6_path <- "Imágenes/vecinos.png"
+img6 <- readPNG(img6_path, native = TRUE, info = TRUE)
+include_graphics(img6_path)
+```
+
+```{=latex}
+\textit{Notes:} Example showing how neighboring municipalities were determined using GIS modeling.
+\end{figure}
+```
+
+\newpage
+
+# Appendix: Kantian Optimization^[For further didactic reference consult Romans Pancs book: [Lectures on Microeconomics](https://mitpress.mit.edu/books/lectures-microeconomics).]{#idC}
+
+Consider a set of $n$ agents. Each agent $i$ takes an action $E^{i} \in \mathbb R^+$. Define everyone else’s actions $E^{-i} = (E^1, …, E^{i-1}, E^{i+1}, … E^{n})$. A feasible contribution profile is $E = (E^1, E^2, …, E^n)$. Agent i’s payoff is $V^i(E^i, E^{-i})$; each agent’s utility depends not only on her contributions but also on other’s contributions, representing externalities. 
+
+***Definition 1.*** A monotone decreasing game is a game in which every player's utility is decreasing in the contributions of other players.
+
+***Definition 2.*** A contribution profile $(E^*, E^*, …, E^*)$ is a simple Kantian equilibrium if every player prefers this profile to any other constant contribution profile.
+
+In Kant's words: "Take the action you would will be universalized." 
+
+
+***Proposition.*** The simple Kantian equilibrium of any monotone game is Pareto efficient.
+
+
+***Proof.*** Suppose a decreasing monotone game. Let $(E^{*}, E^{*}, …, E^{*})$ be the simple Kantian equilibrium and suppose it is not Pareto efficient. Then there is another profile $(E^{1}, E^{2}, …, E^{n})$ that everyone prefers. Let $E^1$ be the smallest contribution in this profile. Then, Player 1 prefers $(E^1, E^1, …, E^1)$ over $(E^1, E^2, …, E^n)$ over $(E^{*}, E^{*}, …, E^{*})$, which is a contradiction.
+
+
