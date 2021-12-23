@@ -1,6 +1,6 @@
 # Water Pollution Spillovers and Cooperation
 
-## ITAM Economics Thesis
+## ITAM Economics Undergrad Thesis
 
 - My thesis in pdf format can be consulted here, as well as my R Markdown document and my data for replicability.
 - Most of the images in my thesis were rendered using QGIS.
