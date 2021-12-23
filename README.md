@@ -19,5 +19,5 @@
   - With a Digital Elevation Model (DEM) from Mexico and GIS modeling, I determine the direction of the flow of the country's rivers and determine which communities 
   are upstream and which are downstream from each other.
   - My thesis shows evidence that water quality in mexican rivers improves on average in contexts where cooperation is fostered.
-
+  - In the example below upstream mayor belongs to MORENA and downstream mayor to PRI, therefore this pair of municipalities would not be politically aligned hindering cooperation opportunities.
 ![ejemplo_vecinos](https://user-images.githubusercontent.com/87843175/136896089-5e42a4a5-cc13-4e23-8f25-06af7be0db2e.png)
