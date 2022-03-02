@@ -501,9 +501,9 @@ Exposing threats to this work does not mean that the results obtained are necess
 ```{r table4, results = "asis", message = FALSE, echo=FALSE}
 
 stargazer(reg_1, reg_2, reg_3,
-          add.lines = list(c("Station-pair fixed effects", "Y", "Y", "Y"),
-                           c("Year fixed effects", "Y", "Y", "Y"), 
-                           c("Clustered S.E. by municipality-pair", "Y", "Y", "Y"),
+          add.lines = list(c("Station-pair fixed effects", "Yes", "Yes", "Yes"),
+                           c("Year fixed effects", "Yes", "Yes", "Yes"), 
+                           c("Clustered S.E. by municipality-pair", "Yes", "Yes", "Yes"),
                            c("Pairs of neighboring municipalities",mun_dbo, mun_dqo, mun_sst),
                            c("Station pairs",station_dbo, station_dqo, station_sst)), title = "TWFE Regression: Determinants of Downstream Pollution Changes", covariate.labels = c("log($\\Delta Elevation$)", "Political Alignment", "log($BOD^{up}$)", "log($COD^{up}$)","log($TSS^{up}$)"), dep.var.labels = c("log($BOD^{down}$)", "log($COD^{down}$)", "log($TSS^{down}$)"),  type = "latex", header=FALSE, align=FALSE, initial.zero=TRUE, perl=TRUE, omit.stat=c("rsq", "f", "ser" ), float=TRUE, column.sep.width="3pt", font.size = "small",
           digits=3, digits.extra=4, table.placement = "H", label = "tab:table4", table.layout = "-ld#-t-as-n")
@@ -525,10 +525,10 @@ stargazer(reg_1, reg_2, reg_3,
 ```{r table5, results = "asis", message = FALSE, echo=FALSE}
 
 stargazer(reg_4, reg_5, reg_6,
-          add.lines = list(c("Station-pair fixed effects", "Y", "Y", "Y"),
-                           c("Year fixed effects", "Y", "Y", "Y"),
-                           c("Station-pair trends", "Y", "Y", "Y"),
-                           c("Clustered S.E. by municipality-pair", "Y", "Y", "Y"),
+          add.lines = list(c("Station-pair fixed effects", "Yes", "Yes", "Yes"),
+                           c("Year fixed effects", "Yes", "Yes", "Yes"),
+                           c("Station-pair trends", "Yes", "Yes", "Yes"),
+                           c("Clustered S.E. by municipality-pair", "Yes", "Yes", "Yes"),
                            c("Pairs of neighboring municipalities",mun_dbo, mun_dqo, mun_sst),
                            c("Station pairs",station_dbo, station_dqo, station_sst)), title = "Robustness Test: Adding Pair Specific Linear Time Trends", covariate.labels = c("log($\\Delta Elevation$)", "Political Alignment", "log($BOD^{up}$)", "log($COD^{up}$)","log($TSS^{up}$)"), dep.var.labels = c("log($BOD^{down}$)", "log($COD^{down}$)", "log($TSS^{down}$)"),  type = "latex", header=FALSE, align=FALSE, initial.zero=TRUE, perl=TRUE, omit.stat=c("rsq", "f", "ser" ), float=TRUE, column.sep.width="3pt", font.size = "small",
           digits=3, digits.extra=4, table.placement = "H", label = "tab:table5", table.layout = "-ld#-t-as-n" )
@@ -550,9 +550,9 @@ stargazer(reg_4, reg_5, reg_6,
 ```{r table6, results = "asis", message = FALSE, echo=FALSE}
 
 stargazer(reg_7, reg_8, reg_9,
-          add.lines = list(c("Station-pair fixed effects", "Y", "Y", "Y"),
-                           c("Year fixed effects", "Y", "Y", "Y"), 
-                           c("Clustered S.E. by municipality-pair", "Y", "Y", "Y"),
+          add.lines = list(c("Station-pair fixed effects", "Yes", "Yes", "Yes"),
+                           c("Year fixed effects", "Yes", "Yes", "Yes"), 
+                           c("Clustered S.E. by municipality-pair", "Yes", "Yes", "Yes"),
                            c("Pairs of neighboring municipalities",mun_dbo_2, mun_dqo_2, mun_sst_2),
                            c("Station pairs",station_dbo_2, station_dqo_2, station_sst_2)), title = "Robustness Test: Adding a Leading Political Alignment Variable", covariate.labels = c("log($\\Delta Elevation$)", "Political Alignment", "Political $Alignment_{+6}$", "log($BOD^{up}$)", "log($COD^{up}$)","log($TSS^{up}$)"), dep.var.labels = c("log($BOD^{down}$)", "log($COD^{down}$)", "log($TSS^{down}$)"),  type = "latex", header=FALSE, align=FALSE, initial.zero=TRUE, perl=TRUE, omit.stat=c("rsq", "f", "ser" ), float=TRUE, column.sep.width="3pt", font.size = "small",
           digits=3, digits.extra=4, table.placement = "H", label = "tab:table6", table.layout = "-ld#-t-as-n" )
