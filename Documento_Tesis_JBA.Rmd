@@ -1,7 +1,7 @@
 ---
 title: 'We Both Step and Do Not Step in the Same Rivers: Municipal Cooperation and
   Water Pollution Spillovers in Mexico'
-author: "Joaquín Barrutia Álvarez"
+author: "Joaquín Barrutia Álvarez^[To replicate this work consult: https://github.com/quinoba/Tesis_ITAM]"
 date: "`r format(Sys.time(), '%B %Y')`"
 abstract: Streamflows create incentives to overexploit rivers since the social costs of polluting are not completely internalized by agents. Implementing solutions to tackle the spillover effects caused by this overexploitation becomes even more complicated when rivers cross political borders, as each jurisdiction the river passes through will have different interests and incentives. This work proposes as a possible solution inter-jurisdictional cooperative arrangements. A panel data where each observation is a pair of monitoring stations in neighboring municipalities allows us to investigate the determinants of river pollution in Mexico, controlling for fixed effects. The results found in this work align with the predictions made from the theory of externalities; an increase in upstream pollution will have negative consequences on downstream water quality. That is why solutions where agents better internalize the costs of their pollution, such as cooperation, can bring us closer to better management of our natural resources. Using a dichotomous variable of political alignment, this work also shows evidence that water quality in rivers improves on average in contexts where cooperation is fostered.
 output:
