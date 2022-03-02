@@ -161,7 +161,7 @@ library(stringi)
 library(knitr)
 library(kableExtra)
 
-setwd("/Contaminacion/DBO/Todo/")
+setwd("Contaminacion/DBO/Todo/")
 
 dbo_todo <- list.files(pattern="*.shp")
 
@@ -178,7 +178,7 @@ mainDBO_stats <- tibble(mainDBO) %>% filter(Rio == "RIO") %>%
 
 
 #DQO
-setwd("/Contaminacion/DQO/Todo/")
+setwd("Contaminacion/DQO/Todo/")
 dqo_todo <- list.files(pattern="*.shp")
 
 mainDQO <- dqo_todo %>% map_dfr(st_read) %>% 
@@ -194,7 +194,7 @@ mainDQO_stats <- tibble(mainDQO) %>% filter(Rio == "RIO") %>%
 
 
 #SST
-setwd("/Contaminacion/SST/Todo/")
+setwd("Contaminacion/SST/Todo/")
 sst_todo <- list.files(pattern="*.shp")
 
 mainSST <- sst_todo %>% map_dfr(st_read) %>% 
@@ -324,7 +324,7 @@ library(broom)
 library(lmtest)
 library(lfe)
 library(formattable)
-setwd("/Clean_Data/")
+setwd("Clean_Data/")
 
 datos_dbo <- read_csv("df_dbo.csv") %>% 
   mutate(id_estaciones = as.factor(paste(id_emca.x, id_emca.y, sep = "_")), `Upstream Elevation`= elevation.x, `Downstream Elevation`= elevation.y) %>%
