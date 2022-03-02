@@ -273,7 +273,7 @@ img4_path <- "Imágenes/ejemplo_vecinos.png"
 img4 <- readPNG(img4_path, native = TRUE, info = TRUE)
 include_graphics(img4_path)
 ```
-The following two-way fixed effects regression model (2WFE) pursues to test this work's hypothesis. In particular, it seeks to show the relation between horizontal cooperation and river pollution. The estimating equation is:
+The following two-way fixed effects regression model (TWFE) pursues to test this work's hypothesis. In particular, it seeks to show the relation between horizontal cooperation and river pollution. The estimating equation is:
 
 \begin{equation}\begin{aligned} \label{eq:1}
 ln(Y^{downstream}_{i,t}) = & \beta_1 \textrm{Political Alignment}_{i,t} + \beta_2 ln(Y^{upstream}_{i,t})\\
@@ -417,7 +417,7 @@ Political Alignment displays a negative and significant coefficient for the firs
 
 ## Robustness Checks{#id6.2}
 
-The main threat to the estimated equations in Table \ref{tab:table4} is the fulfillment of the strict exogeneity assumption, meaning that the treatment in each time period must be uncorrelated with the error term in each time period. Under a 2WFE regression, we are controlling for the omitted variable bias originating from unobserved heterogeneity, which is constant over time and constant over pair of stations; however, it is difficult to argue for any 2WFE design that the strict exogeneity assumption is fully met. It is easy to imagine that cooperative actions carried out by mayors in the aligned municipalities will have lasting effects, thus violating the assumption of strict exogeneity. Therefore, it was decided to run some additional specifications to give robustness to the results.
+The main threat to the estimated equations in Table \ref{tab:table4} is the fulfillment of the strict exogeneity assumption, meaning that the treatment in each time period must be uncorrelated with the error term in each time period. Under a TWFE regression, we are controlling for the omitted variable bias originating from unobserved heterogeneity, which is constant over time and constant over pair of stations; however, it is difficult to argue for any TWFE design that the strict exogeneity assumption is fully met. It is easy to imagine that cooperative actions carried out by mayors in the aligned municipalities will have lasting effects, thus violating the assumption of strict exogeneity. Therefore, it was decided to run some additional specifications to give robustness to the results.
 
 First, it was decided to control for linear time trends specific to each station-pair. These help to rule out the possibility that politically aligned pairs and non-aligned pairs were already on differential growth trajectories in the outcome variable. If the effects captured by the Political Alignment coefficient are only due to some underlying trends, the effects will be banished away by incorporating these pair-specific trends into our estimating equation, meaning a change in the outcome would have happened even in the absence of treatment. The new estimating equation is the following: 
 
@@ -442,9 +442,9 @@ Results in Table \ref{tab:table6} display the $\beta_2$ coefficient for the BOD,
 
 ## Negative Weights{#id6.3}
 
-It is relevant to mention recent literature on additional issues related to estimators obtained in a 2WFE design [@borusyak_revisiting_2017; @callaway_difference_2021; @de_chaisemartin_two-way_2020; @goodman-bacon_difference_2021]. A  $2\times2$ pre-post design is not feasible due to this work's data structure, specifically given the characteristics of our treatment (Political Alignment), which switches from on to off and vice versa in different and multiple periods of time. Thus, a two-way fixed effects regression model, such as equation (\ref{eq:1}), might seem like the right estimating equation to test this work's hypothesis, the negative weights problem should be taken into consideration. 
+It is relevant to mention recent literature on additional issues related to estimators obtained in a TWFE design [@borusyak_revisiting_2017; @callaway_difference_2021; @de_chaisemartin_two-way_2020; @goodman-bacon_difference_2021]. A  $2\times2$ pre-post design is not feasible due to this work's data structure, specifically given the characteristics of our treatment (Political Alignment), which switches from on to off and vice versa in different and multiple periods of time. Thus, a two-way fixed effects regression model, such as equation (\ref{eq:1}), might seem like the right estimating equation to test this work's hypothesis, the negative weights problem should be taken into consideration. 
 
-Equation (\ref{eq:1}) is a particular case of the following general 2WFE regression equation:
+Equation (\ref{eq:1}) is a particular case of the following general TWFE regression equation:
 
 \begin{equation}\begin{aligned} \label{eq:3}
 Y_{i,t} = \beta T_{i,t} + \alpha_{i} + \lambda_{t} + \epsilon_{i,t}
