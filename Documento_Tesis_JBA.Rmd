@@ -293,13 +293,13 @@ $\textrm{Political Alignment}_{i,t}$ is the main independent variable in this pa
 \end{cases}
 \]
 
-$\Delta{Elevation}_{i,t}$ is a variable that represents the difference in elevation between the pair of stations $i$ at time $t$; this variable was constructed as follows:     
+$\Delta{Elevation}_{i,t}$ is a variable that represents the difference in elevation between the pair of stations $i$ at time $t$; this variable was constructed as follows:[^longnote]     
 
 \[
 \Delta\textrm{Elevation}_{i,t} = \textrm{Elevation}^{upstream}_{i,t} - \textrm{Elevation}^{downstream}_{i,t}
 \]
 
-The decision to incorporate this variable into the estimating equations (\ref{eq:1}) was made based on the stream discharge Manning formula^[Manning's formula is one of the most common equations for estimating discharge of an open channel flow. More information about this can be found on the web.]:
+The decision to incorporate this variable into the estimating equations (\ref{eq:1}) was made based on the stream discharge Manning formula:^[Manning's formula is one of the most common equations for estimating discharge of an open channel flow. More information about this can be found on the web.]
 
 \[
 \textrm{Q} = \textrm{A} \bar{u}
@@ -314,6 +314,11 @@ where
 The discharge of a river is an essential variable for water quality management. The ecological effects of pollution are less harmful and persistent when the discharge rate is higher. In the absence of a variable that measures the discharge rate at each monitoring station, the variable $\Delta{Elevation}_{i,t}$ was incorporated, which can be interpreted as the slope of the river. The slope of a river is positively related to its flow velocity since velocity is driven by the acceleration due to gravity. Furthermore, from the Manning equation, it is easy to see that river discharge is positively related to velocity. Intuitively, in the presence of a greater steepness in a river section, the water stagnates less; therefore, the volume of water flowing over time will be greater. This water flow also includes suspended solids, dissolved chemicals, and biological material, which can be pollutants captured by CONAGUA's monitoring stations. Therefore, a high discharge prevents all of this pollution from remaining stagnant. By observing a negative coefficient for this variable it can be verified that the pairs of stations are located upstream and downstream, respectively.
 
 Lastly, specification (\ref{eq:1}) controls for station-pair fixed effects ($\alpha_{i}$), and time fixed effects ($\lambda_ {t}$). It is important to add monitoring station-pair fixed effects to control for variables that remain constant over time but have important effects on river pollution. By adding these fixed effects, we control for the distance between the stations of each pair; at a greater distance, we could expect an increase in pollution as there would be more communities, industries, or cities located between these two stations. Furthermore, these fixed effects control for the distance between stations and the downstream or upstream border of the neighboring municipality since, as @lipscomb_decentralization_2017 show, pollution increases as we approach the downstream borders. Additionally, considering that the treatment variable is mayoral alignment, and  since mayoral alignment varies by municipality-pair, standard errors were clustered at the municipality-pair level since the error terms are potentially spatially correlated. 
+
+[^longnote]: 
+  While rendering the stations using GIS modeling, it became noticeable that some stations slightly changed their location from one year to another. These station movements could be due to one of the following reasons: (1) SINA made a mistake while computing the coordinates of monitoring stations, and stations actually did not move. (2) Stations were placed nearby but not in the exact same location. 
+  CONAGUA never answered as to which of these two reasons was correct. Therefore, it was necessary to incorporate a variable to control for the possible station location movements. The change in elevation between each pair of stations, $\Delta{Elevation}_{i,t}$, was the variable chosen for two reasons: (1) it indirectly captures changes in station location, since if a station of a pair of stations $i$ switches location from a year $t$ to $t+1$ the elevation where this station was located will also change, and therefore, also $\Delta{Elevation}_{i,t}$ will be different than $\Delta{Elevation}_{i,t+1}$. (2) This variable can give us information on the determinants of pollution in rivers based on Manning's formula.
+  
 \newpage
 
 # Results {#id6}
