@@ -161,7 +161,7 @@ library(stringi)
 library(knitr)
 library(kableExtra)
 
-setwd("Contaminacion/DBO/Todo/")
+setwd("replicability/Contaminacion/DBO/Todo/")
 
 dbo_todo <- list.files(pattern="*.shp")
 
@@ -178,7 +178,7 @@ mainDBO_stats <- tibble(mainDBO) %>% filter(Rio == "RIO") %>%
 
 
 #DQO
-setwd("Contaminacion/DQO/Todo/")
+setwd("../../DQO/Todo/")
 dqo_todo <- list.files(pattern="*.shp")
 
 mainDQO <- dqo_todo %>% map_dfr(st_read) %>% 
@@ -194,7 +194,7 @@ mainDQO_stats <- tibble(mainDQO) %>% filter(Rio == "RIO") %>%
 
 
 #SST
-setwd("Contaminacion/SST/Todo/")
+setwd("../../SST/Todo/")
 sst_todo <- list.files(pattern="*.shp")
 
 mainSST <- sst_todo %>% map_dfr(st_read) %>% 
@@ -324,7 +324,7 @@ library(broom)
 library(lmtest)
 library(lfe)
 library(formattable)
-setwd("Clean_Data/")
+setwd("replicability/Clean_Data/")
 
 datos_dbo <- read_csv("df_dbo.csv") %>% 
   mutate(id_estaciones = as.factor(paste(id_emca.x, id_emca.y, sep = "_")), `Upstream Elevation`= elevation.x, `Downstream Elevation`= elevation.y) %>%
@@ -370,19 +370,13 @@ reg_6 <- felm(log(`Downstream TSS`) ~ log(`Upstream Elevation` - `Downstream Ele
 
 # lead 6 years ahead
 datos_dbo_2 <- datos_dbo %>% 
-  mutate(id_estaciones = as.factor(paste(id_emca.x, id_emca.y, sep = "_")), `Upstream Elevation`= elevation.x, `Downstream Elevation`= elevation.y) %>%
-  rename(`Upstream BOD` = dbo.x, `Downstream BOD` = dbo.y, `Political Alignment` = Political_Alignment ) %>% 
   group_by(id_par) %>% mutate(lead_political= lead(`Political Alignment`,6)) %>% ungroup()
 
-datos_dqo_2 <- datos_dqo %>% 
-  mutate(id_estaciones = as.factor(paste(id_emca.x, id_emca.y, sep = "_")), `Upstream Elevation`= elevation.x, `Downstream Elevation`= elevation.y) %>%
-  rename(`Upstream COD` = dqo.x, `Downstream COD` = dqo.y, `Political Alignment` = Political_Alignment ) %>% 
+datos_dqo_2 <- datos_dqo %>%
   group_by(id_par) %>% mutate(lead_political= lead(`Political Alignment`,6)) %>% ungroup()
 
 
-datos_sst_2 <- datos_sst %>% 
-  mutate(id_estaciones = as.factor(paste(id_emca.x, id_emca.y, sep = "_")), `Upstream Elevation`= elevation.x, `Downstream Elevation`= elevation.y) %>%
-  rename(`Upstream TSS` = sst.x, `Downstream TSS` = sst.y, `Political Alignment` = Political_Alignment ) %>% 
+datos_sst_2 <- datos_sst %>%
   group_by(id_par) %>% mutate(lead_political= lead(`Political Alignment`,6)) %>% ungroup()
 
 
@@ -599,7 +593,7 @@ The decrease in the mean downstream pollution in politically aligned municipalit
 
 ```{r, include=FALSE}
 
-setwd("Censo INEGI/")
+setwd("replicability/Censo INEGI/")
 
 DF_Agua <- read_csv("DF_Agua.csv") %>% rename(State = ENT)
 
