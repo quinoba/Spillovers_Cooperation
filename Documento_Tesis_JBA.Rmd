@@ -447,7 +447,7 @@ Results in Table \ref{tab:table6} display the $\beta_2$ coefficient for the BOD,
 
 ## Negative Weights{#id6.3}
 
-It is relevant to mention recent literature on additional issues related to estimators obtained in a TWFE design [@borusyak_revisiting_2017; @callaway_difference_2021; @de_chaisemartin_two-way_2020; @goodman-bacon_difference_2021]. A  $2\times2$ pre-post design is not feasible due to this work's data structure, specifically given the characteristics of our treatment (Political Alignment), which switches from on to off and vice versa in different and multiple periods of time. Thus, a two-way fixed effects regression model, such as equation (\ref{eq:1}), might seem like the right estimating equation to test this work's hypothesis, the negative weights problem should be taken into consideration. 
+It is relevant to mention recent literature on additional issues related to estimators obtained in a TWFE design [@borusyak_revisiting_2017; @callaway_difference_2021; @de_chaisemartin_two-way_2020; @goodman-bacon_difference_2021]. A  $2\times2$ pre-post design is not feasible due to this work's data structure, specifically given the characteristics of our treatment (Political Alignment), which switches from on to off and vice versa in different and multiple periods of time. Although, a two-way fixed effects regression model, such as equation (\ref{eq:1}), might seem like the right estimating equation to test this work's hypothesis, the negative weights problem should be taken into consideration. 
 
 Equation (\ref{eq:1}) is a particular case of the following general TWFE regression equation:
 
