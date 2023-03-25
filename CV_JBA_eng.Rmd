@@ -1,0 +1,92 @@
+---
+output: 
+  pdf_document:
+    latex_engine: pdflatex
+    template: svm-latex-cv.tex
+geometry: margin=1in
+
+title: "CV"
+author: Joaquín Barrutia Álvarez
+
+jobtitle: "Research Assistant, CIE"
+address: "Uppsala, Sweden"
+fontawesome: yes
+email: joaquinbarrutia@gmail.com  
+github: quinoba
+twitter: j_barrutia
+#osf: "Enter 5 digit osf string here"
+phone: "[+46 762617438](tel:+46762617438)"
+#web: guinness.com
+#updated: no
+
+keywords: R Markdown, academic CV, template
+
+fontfamily: mathpazo
+fontfamilyoptions: sc, osf
+fontsize: 11pt
+linkcolor: blue
+urlcolor: blue
+---
+
+\cfoot{\scriptsize  Joaquín Barrutia - CV}
+
+# Education
+
+## Uppsala University, Uppsala, Sweden
+- M.A., Economics \hfill 2022-2024
+
+## ITAM, Mexico City, Mexico 
+- Diploma, Data Science & Machine Learning Applied to Financial Markets \hfill 2021-2022
+
+- B.A. (Honors), Economics  \hfill 2016-2021
+  - *[We Both Step and Do Not Step in the Same Rivers:  Municipal Cooperation and Water Pollution Spillovers in Mexico](https://github.com/quinoba/Spillovers_Cooperation) (Advisor: Emilio Gutiérrez).*
+
+# Experience
+
+## Center for Economic Research ([CIE](http://cie.itam.mx/)), ITAM, Mexico City
+
+- Reaserch Assistant \hfill 2022-
+
+  - *Working in a Mercury Project research team with Antonella Bandiera (ITAM), Horacio Larreguy (ITAM), and John Marshall (Columbia), partnering with fact-checkers in Kenya, South Africa, and Bolivia, conducting two studies to test approaches to counter misinformation.*^[[Harnessing influencers to counter misinformation: Scalable solutions in the Global South.](https://www.ssrc.org/grantees/general-scalable-solutions-to-counter-misinformation-in-the-global-south/)]
+  
+  - *Some of my tasks include: using Twitter API to retrieve user information, cleaning data, running regression analysis, training and using Machine Learning models to predict outcomes, setting Twitter Ad Campaigns and collecting their data.*
+
+## UNIFIN Financiera, Mexico City
+
+- Structured Finance Analyst \hfill 2020-2022
+
+# Skills & Relevant Coursework
+
+## Software
+
+- Microsoft Office, \LaTeX, Python, QGIS, R
+
+## Languages
+
+- Spanish (native), English (fluent), Mandarin Chinese (HSK1)
+
+## Relevant Coursework
+
+- Microeconomic Theory (ITAM, UU), Macroeconomic Theory (ITAM, UU), Econometric Theory (ITAM, UU), Applied Microeconometrics (ITAM, UU), Linear Algebra (ITAM), Real Analysis (ITAM), Univariate and Multivariate Calculus (ITAM), Probability Theory (ITAM), Statistical Inference (ITAM), Applied Macroeconometrics (ITAM)
+
+# Research Interests 
+
+- Development Economics, Cooperative Economics, Income Distribution
+
+# Academic Awards
+
+- First Place. Undergraduate Thesis. Premio ExITAM ---Best thesis in Economics. \hfill 2023
+
+- Honorific Mention. Undergraduate Thesis. [Citibanamex Economics Prize](https://www.banamex.com/premioeconomia/index.html). \hfill 2021
+
+- ITAM Special Mention Distinction. Awarded to students with an outstanding thesis
+defense and a final average grade above 8.5 out of 10. \hfill 2021
+
+- First Place. ITAM Hagamos Eco 1. Awarded for the production of audiovisual material explaining concepts for the Economics 101 course. \hfill 2021
+
+
+# Scholarships and Felowships
+
+- FIDERH (Fund for Human Resource Development), Banco de México. \hfill 2023
+
+- ITAM 50 percent academic excellence scholarship for BA studies. \hfill 2016 - 2019
